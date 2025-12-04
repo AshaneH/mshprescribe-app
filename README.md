@@ -1,5 +1,7 @@
 # MSHPrescribe Mobile App
 
+> **⚠️ UNOFFICIAL PROJECT** - This app is independently developed and not affiliated with Metro South Health or Queensland Health.
+
 A native Flutter mobile application for [mshprescribe.com](https://mshprescribe.com), providing Queensland Health clinicians with offline access to evidence-based clinical guidelines, calculators, and prescribing information.
 
 ## Features
@@ -172,18 +174,20 @@ flutter doctor --android-licenses
 - Check that SSO cookies are enabled in `webview_screen.dart`
 - Clear app data and re-login
 
-## Future Enhancements
-
-- [ ] Push notifications for guideline updates
-- [ ] Advanced offline mode with full content sync
-- [ ] Dark mode support
-- [ ] Accessibility improvements
-- [ ] iOS App Store deployment
-
 ## License
 
-Copyright © 2025 Metro South Health. All rights reserved.
+MIT License - see [LICENSE](LICENSE) file for details.
 
-## Contact
+Copyright © 2025 Ashane Herath
 
-For issues or questions, contact the MSH Medicines Management team.
+## Disclaimer
+
+**This is an UNOFFICIAL mobile application** developed independently by Ashane Herath. It is not affiliated with, endorsed by, or officially associated with Metro South Health, Queensland Health, or mshprescribe.com.
+
+This app is provided as a personal project for educational and convenience purposes. Users should always verify clinical information with official sources.
+
+## Support
+
+For issues or questions about this app, please open an issue on [GitHub](https://github.com/AshaneH/mshprescribe-app/issues).
+
+For official MSHPrescribe website support, visit [mshprescribe.com/contact](https://mshprescribe.com/contact).
