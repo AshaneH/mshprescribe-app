@@ -2,177 +2,125 @@
 
 > **⚠️ UNOFFICIAL PROJECT** - This app is independently developed and not affiliated with Metro South Health or Queensland Health.
 
-A native Flutter mobile application for [mshprescribe.com](https://mshprescribe.com), providing Queensland Health clinicians with offline access to evidence-based clinical guidelines, calculators, and prescribing information.
+An unofficial native mobile app for accessing [mshprescribe.com](https://mshprescribe.com) clinical guidelines on your phone.
+
+## What is this?
+
+MSHPrescribe is a web-based clinical decision support tool used by Queensland Health clinicians. This mobile app provides:
+
+- **Native mobile interface** for easier navigation on phones
+- **Offline bookmarks** to save important guidelines
+- **Fast search** across all clinical content
+- **Persistent login** via Queensland Health SSO
 
 ## Features
 
-- **Hybrid Architecture**: Native UI with WebView content for always up-to-date guidelines
-- **Queensland Health SSO**: Seamless authentication via Microsoft 365
-- **Smart URL Resolution**: Self-healing links with search fallback
-- **Native Bookmarks**: Save pages for offline access
-- **In-App Search**: Fast guideline search with native UI
-- **Site Crawler**: Developer tool to automatically discover and map all guideline URLs
-- **Offline Caching**: WebView-based caching for visited pages
+### 📱 Native Mobile Experience
+- Clean bottom navigation for Guidelines, Surgery, Updates, and Bookmarks
+- Optimized for one-handed use on mobile devices
 
-## Quick Start
+### 🔖 Bookmark Management
+- Save frequently accessed guidelines for offline reference
+- Quick access from dedicated Bookmarks tab
+- SQLite-based local storage
 
-### Prerequisites
+### 🔍 Smart Search
+- Native search interface
+- Automatically redirects to relevant content
+- Search history preservation
 
-- **Flutter SDK**: Version 3.38.3 or later ([Installation Guide](https://docs.flutter.dev/get-started/install))
-- **Android Studio**: For Android development ([Download](https://developer.android.com/studio))
-  - Android SDK Command-line Tools
-  - Android Emulator or physical device
-- **Xcode**: For iOS development (macOS only)
+### 🔐 Seamless Authentication
+- Login once with your QH credentials
+- Session persists across app restarts
+- Secure cookie-based authentication
 
-### Installation
+### 🌐 Offline Support
+- Automatic caching of visited pages
+- Bookmarked pages available offline
+- WebView-based content storage
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repository-url>
-   cd mshprescribe-app
-   ```
+## Download & Install
 
-2. **Install dependencies**:
-   ```bash
-   flutter pub get
-   ```
+### Android
+1. Download the APK from [Releases](../../releases)
+2. Enable "Install from Unknown Sources" in Settings
+3. Install the APK
+4. Launch and log in with QH credentials
 
-3. **Run the app**:
-   ```bash
-   flutter run
-   ```
+### iOS
+_iOS version pending Apple Developer Program enrollment_
 
-## Project Structure
+## Requirements
 
-```
-lib/
-├── main.dart                 # App entry point
-├── models/
-│   ├── bookmark.dart         # Bookmark data model
-│   └── menu_item.dart        # Menu item model
-├── screens/
-│   ├── home_screen.dart      # Main navigation screen
-│   ├── webview_screen.dart   # WebView wrapper with SSO
-│   ├── guidelines_list_screen.dart
-│   ├── surgery_list_screen.dart
-│   ├── bookmarks_screen.dart
-│   ├── crawler_screen.dart   # Site crawler tool
-│   └── web_search_delegate.dart
-├── services/
-│   └── storage_service.dart  # SQLite database service
-└── utils/
-    └── constants.dart        # App constants and configuration
-```
+- **Android**: Version 5.0 (Lollipop) or higher
+- **iOS**: Version 12.0 or higher (when available)
+- **Network**: Internet connection required for initial login and content updates
+- **Account**: Valid Queensland Health credentials
 
-## Architecture
+## Usage
 
-### Hybrid Approach
-- **Native Flutter UI**: Navigation, search, bookmarks
-- **WebView Content**: Live website content via `flutter_inappwebview`
-- **Benefits**: Up-to-date content, minimal maintenance
+### First Launch
+1. Open the app
+2. Log in with your QH (Novell) account
+3. Navigate through Guidelines or Drug Use in Surgery sections
+4. Tap any category to view content
 
-### URL Strategy
-1. **Database-First**: Check `StorageService` for saved URLs
-2. **Search Fallback**: If no URL found, search for category name (`/#search/[query]`)
-3. **Manual Linking**: Users can link pages to categories via WebView menu
-4. **Site Crawler**: Developer tool to auto-discover all URLs
+### Bookmarking
+1. Open any guideline page
+2. Tap the **bookmark icon** (top-right)
+3. Access saved bookmarks from the Bookmarks tab
 
-### Authentication
-- SSO handled entirely within WebView
-- Cookies persisted via `sharedCookiesEnabled: true`
-- Logout clears all cookies
+### Searching
+1. Tap the **search icon** (top-right on home screen)
+2. Type your query
+3. Press Enter to search
 
-### Data Storage
-- **SQLite** (via `sqflite`): Bookmarks and category URL mappings
-- **Shared Preferences**: App settings (if needed)
-- **WebView Cache**: Automatic caching for offline access
+### Logout / Clear Cache
+1. Tap the **menu** (⋮) on home screen
+2. Select "Logout / Clear Cache"
+3. Re-login with credentials
 
-## Development Guide
+## Known Limitations
 
-### Running on Different Platforms
-
-**Android Emulator**:
-```bash
-flutter run
-```
-
-**iOS Simulator** (macOS only):
-```bash
-flutter run -d "iPhone 15 Pro"
-```
-
-**Web** (for testing UI only, WebView won't work):
-```bash
-flutter run -d chrome
-```
-
-### Using the Site Crawler
-
-1. Launch the app and log in
-2. Tap the menu (⋮) on the home screen
-3. Select "Developer: Crawl Site"
-4. Wait for the scan to complete
-5. All category URLs will be saved to the database
-
-### Adding New Categories
-
-1. Update `AppConstants.guidelineCategories` in `constants.dart`
-2. Run the Site Crawler to discover URLs automatically
-3. Or manually link pages using the WebView menu option
-
-### Debugging
-
-**Enable verbose logging**:
-```bash
-flutter run -v
-```
-
-**View logs**:
-```bash
-flutter logs
-```
-
-**Analyze code**:
-```bash
-flutter analyze
-```
-
-## Dependencies
-
-- `flutter_inappwebview`: ^6.1.5 - WebView with advanced features
-- `url_launcher`: ^6.3.1 - Launch external URLs
-- `shared_preferences`: ^2.3.3 - Simple key-value storage
-- `sqflite`: ^2.4.1 - SQLite database
-- `path`: ^1.9.0 - File path utilities
-- `provider`: ^6.1.2 - State management
-
-## Known Issues
-
-- **First Build**: Takes 5-15 minutes due to NDK download
-- **Windows NDK**: May require manual deletion if corrupted
-- **Search URLs**: Don't link search result pages (validation in place)
+- Requires internet connection for first-time content access
+- Some external links open in system browser
+- Search results show as web pages (not fully native)
 
 ## Troubleshooting
 
-### Android Build Issues
+**App won't load content:**
+- Check your internet connection
+- Log out and log back in
+- Clear app data from Android Settings
 
-**NDK Error**:
-```bash
-Remove-Item -Path "C:\Users\<USER>\AppData\Local\Android\sdk\ndk\*" -Recurse -Force
-flutter clean
-flutter run
-```
+**Pages load slowly:**
+- First load downloads content
+- Subsequent loads use cache
+- Bookmarked pages load faster
 
-**License Issues**:
-```bash
-flutter doctor --android-licenses
-```
+**Login issues:**
+- Ensure using correct QH credentials
+- Check if VPN is required for off-site access
+- Contact QH IT support for account issues
 
-### WebView Not Loading
+## Privacy & Security
 
-- Ensure device/emulator has internet connection
-- Check that SSO cookies are enabled in `webview_screen.dart`
-- Clear app data and re-login
+- No clinical data is stored by this app
+- Login credentials handled by QH SSO (Microsoft 365)
+- Bookmarks stored locally on device
+- App does not transmit data to third parties
+
+## Disclaimer
+
+**This is an UNOFFICIAL mobile application** developed independently by Ashane Herath. It is not affiliated with, endorsed by, or officially associated with Metro South Health, Queensland Health, or mshprescribe.com.
+
+This app provides a mobile interface to access existing web content. All clinical information comes directly from the official mshprescribe.com website. Users should verify critical clinical decisions with official sources and current guidelines.
+
+**Use at your own risk.** The developer makes no warranties regarding accuracy, reliability, or suitability for clinical use.
+
+## Development
+
+Want to build or modify this app? See [DEVELOPMENT.md](DEVELOPMENT.md) for technical documentation.
 
 ## License
 
@@ -180,14 +128,16 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 Copyright © 2025 Ashane Herath
 
-## Disclaimer
-
-**This is an UNOFFICIAL mobile application** developed independently by Ashane Herath. It is not affiliated with, endorsed by, or officially associated with Metro South Health, Queensland Health, or mshprescribe.com.
-
-This app is provided as a personal project for educational and convenience purposes. Users should always verify clinical information with official sources.
-
 ## Support
 
-For issues or questions about this app, please open an issue on [GitHub](https://github.com/AshaneH/mshprescribe-app/issues).
+**For app issues:**
+- Open an issue on [GitHub](https://github.com/AshaneH/mshprescribe-app/issues)
 
-For official MSHPrescribe website support, visit [mshprescribe.com/contact](https://mshprescribe.com/contact).
+**For official MSHPrescribe website support:**
+- Visit [mshprescribe.com/contact](https://mshprescribe.com/contact)
+
+## Acknowledgments
+
+- MSHPrescribe website content © Metro South Health
+- App icon uses Flutter default (customization pending)
+- Built with [Flutter](https://flutter.dev)
