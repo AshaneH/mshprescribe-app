@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:mshprescribe_app/models/bookmark.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -101,5 +102,19 @@ class StorageService {
       // Table might not exist yet
     }
     return null;
+  }
+
+  // Load URLs from bundled JSON asset (run once on first app launch)
+  Future<void> loadCategoryUrlsFromAssets(String jsonString) async {
+    try {
+      final data = json.decode(jsonString);
+      final categories = data['categories'] as Map<String, dynamic>;
+
+      for (var entry in categories.entries) {
+        await saveCategoryUrl(entry.key, entry.value);
+      }
+    } catch (e) {
+      print('Error loading category URLs: $e');
+    }
   }
 }
